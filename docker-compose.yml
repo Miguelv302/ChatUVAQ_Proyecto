@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  # ---------------------------------
+  #  Servicio 1: El Backend (Tu API)
+  # ---------------------------------
+  api-uvaq:
+    build: ./backend # Busca el Dockerfile en la carpeta /backend
+    container_name: api-uvaq-service
+    ports:
+      - "8000:8000" # Expone el puerto 8000 de FastAPI
+    volumes:
+      # Sincroniza tu código local con el contenedor para desarrollo
+      - ./backend:/app
+    env_file:
+      - ./backend/.env # Carga las variables de entorno (API Keys)
+    depends_on:
+      - qdrant-db   # Se espera a que Qdrant esté listo
+      - ollama-service # Se espera a que Ollama esté listo
+    restart: unless-stopped
+
+  # ---------------------------------
+  #  Servicio 2: Base de Datos Vectorial
+  # ---------------------------------
+  qdrant-db:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-db-service
+    ports:
+      - "6333:6333" # Puerto de la API REST
+      - "6334:6334" # Puerto gRPC
+    volumes:
+      # Persiste los datos de Qdrant para no perder la ingesta
+      - ./qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+  # ---------------------------------
+  #  Servicio 3: El LLM Local
+  # ---------------------------------
+  ollama-service:
+    image: ollama/ollama:latest
+    container_name: ollama-service
+    ports:
+      - "11434:11434"
+    volumes:
+      # Persiste los modelos descargados de Ollama
+      - ./ollama_storage:/root/.ollama
+    # --- Configuración Opcional para GPU (NVIDIA) ---
+    # Descomenta esto si tienes una GPU NVIDIA y 'nvidia-docker' instalado
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    restart: unless-stopped
+
+volumes:
+  qdrant_storage: {}
+  ollama_storage: {}
