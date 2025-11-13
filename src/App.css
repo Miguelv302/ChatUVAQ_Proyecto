@@ -15,7 +15,9 @@ body {
     color: var(--blanco);
     display: flex;
     height: 100vh;
+    width: 100%;
 }
+
 
 .sidebar {
     position: fixed;
@@ -29,7 +31,8 @@ body {
     overflow-y: auto;
 }
 
-.sidebar h3, .sidebar h4 {
+.sidebar h3,
+.sidebar h4 {
     color: var(--blanco);
     margin-bottom: 16px;
 }
@@ -99,12 +102,15 @@ body {
 }
 
 .chat-container {
-    margin-left: 300px;
+    width: calc(100% - 300px);
     flex: 1;
     height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: var(--negro);
+    position: fixed;
+    top: 0;
+    right: 0;
 }
 
 .chat-box {
@@ -139,8 +145,8 @@ body {
 }
 
 /* Estilos para el contenido Markdown renderizado */
-.markdown-message h1, 
-.markdown-message h2, 
+.markdown-message h1,
+.markdown-message h2,
 .markdown-message h3 {
     color: var(--primario);
     margin: 6px 0;
@@ -150,7 +156,7 @@ body {
     color: var(--blanco);
 }
 
-.markdown-message ul, 
+.markdown-message ul,
 .markdown-message ol {
     margin-left: 20px;
     margin-bottom: 6px;
@@ -182,7 +188,8 @@ body {
     font-size: 16px;
 }
 
-.input-row button, .boton-raro {
+.input-row button,
+.boton-raro {
     padding: 8px 16px;
     border-radius: 8px;
     border: none;
@@ -193,7 +200,8 @@ body {
     transition: 0.3s;
 }
 
-.input-row button:hover, .boton-raro:hover {
+.input-row button:hover,
+.boton-raro:hover {
     transform: scale(1.05);
     filter: saturate(2);
 }
