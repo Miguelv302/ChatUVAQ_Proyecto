@@ -1,3 +1,4 @@
+/*
 :root {
     --primario: #0053d9;
     --secundario: #004145;
@@ -51,7 +52,7 @@ body {
     gap: 12px;
 }
 
-/* Estilo para los links de sesión */
+
 .sidebar ul li a {
     display: block;
     text-decoration: none;
@@ -69,7 +70,7 @@ body {
     transform: scale(1.03);
 }
 
-/* Estilo para los PDFs (que no son links) */
+
 .sidebar ul li {
     display: block;
     text-decoration: none;
@@ -144,7 +145,7 @@ body {
     border-radius: 16px 16px 16px 0;
 }
 
-/* Estilos para el contenido Markdown renderizado */
+
 .markdown-message h1,
 .markdown-message h2,
 .markdown-message h3 {
@@ -206,8 +207,295 @@ body {
     filter: saturate(2);
 }
 
-/* Indicador de "Bot está pensando..." */
+
 .chat-message.typing-indicator div {
     color: var(--gris);
     font-style: italic;
+} */
+
+/* ==== RESETEO PARA FULL SCREEN ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+/* ==== CONTENEDOR PRINCIPAL A PANTALLA COMPLETA ==== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* full screen */
+  width: 100vw;
+  overflow: hidden;
+}
+
+
+
+/* ==== BARRA SUPERIOR ==== */
+.topbar {
+  background: #f7c600;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  height: 45px;
+}
+
+
+
+/* ==== CONTENIDO PRINCIPAL (SIDEBAR + CHAT) ==== */
+.content-wrapper {
+  display: flex;
+  height: calc(100vh - 70px); /* todo el espacio restante */
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+/* ==== SIDEBAR ==== */
+.sidebar {
+  width: 260px;
+  background: #1b1b1b;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+
+
+/* ==== CHAT FULL SCREEN ==== */
+.chat-container {
+  flex: 1;              /* ocupa TODO el espacio disponible */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #1E1E1E;
+}
+
+
+/* ==== ÁREA DE MENSAJES ==== */
+.chat-box {
+  flex: 1;               /* ocupa todo el espacio vertical */
+  overflow-y: auto;
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+/* ==== BURBUJAS ==== */
+.chat-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background: #322B2B;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble.bot {
+  align-self: flex-start;
+  background: #160E0E;
+  color: white;
+  border-bottom-left-radius: 4px;
+}
+
+
+/* ==== FORMULARIOS (UPLOAD + ESCRIBIR) ==== */
+.upload-form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;   /* 👉 Lo manda a la derecha */
+  gap: 12px;                    /* 👉 Separación entre texto, input invisible y botón */
+  width: 100%;
+  padding: 12px 20px;
+  background: #6b5b5b55;        /* como en tu UI actual */
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Estilo del texto */
+.upload-label {
+  color: #f8e6c8;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* Botón Subir */
+.upload-btn {
+  background: #1b1b1b;
+  color: white;
+  padding: 6px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+
+.message-form {
+  padding: 10px 20px;
+  background: #685A5A;
+  
+}
+
+.message-form textarea {
+  width: 100%;
+  font-family: Arial, sans-serif;
+  resize: none;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.message-form button {
+  padding: 12px;
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .chat-bubble {
+    max-width: 85%;
+  }
+
+  .content-wrapper {
+    height: calc(100vh - 70px);
+  }
+}
+
+/* ==== CONTENEDOR DEL CHAT ==== */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e1e; /* color del chat */
+  overflow: hidden;
+}
+
+/* ==== CAJA DONDE APARECEN LOS MENSAJES ==== */
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 40px;
+}
+
+/* ==== BARRA DE MENSAJE ESTILO CHATGPT ==== */
+.message-form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  padding: 20px 0;
+  background: #1e1e1e; /* Igual al fondo del chat */
+  border-top: 1px solid #3a3a3a;
+}
+
+/* Contenedor central tipo ChatGPT */
+.message-input-wrapper {
+  width: 100%;
+  max-width: 760px;
+
+  background: #322B2B;
+  border-radius: 18px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid #322B2B;
+}
+
+/* TEXTAREA estilo ChatGPT */
+.message-input-wrapper textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+
+  resize: none;
+  height: 28px;
+  max-height: 120px;
+
+  font-size: 16px;
+  color: #000;
+  background: transparent;
+}
+
+/* Botón de enviar tipo ChatGPT */
+.message-input-wrapper button {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+
+  background: #000;
+  border: none;
+
+  padding: 8px 10px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s;
+}
+
+.message-input-wrapper button:hover {
+  opacity: 0.7;
+}
+
+/* ICONO DEL BOTÓN */
+.message-input-wrapper button svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 600px) {
+  .chat-box {
+    padding: 12px 20px;
+  }
+
+  .message-input-wrapper {
+    max-width: 95%;
+  }
+}
+
+
+
+
+
