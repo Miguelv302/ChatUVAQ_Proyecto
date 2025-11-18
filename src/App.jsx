@@ -140,27 +140,39 @@ export default function ChatApp() {
   
   // --- Renderizado ---
   return (
-    <>
+  <div className="app-container">
+    
+    {/* --- Barra superior Amarilla con Logo --- */}
+    <header className="topbar">
+      <img src="/logo_uvaq.png" alt="logo" className="logo-img" />
+    </header>
+
+    {/* --- CONTENEDOR PRINCIPAL: sidebar + chat --- */}
+    <div className="content-wrapper">
+
+      {/* --- SIDEBAR --- */}
       <Sidebar 
         sessions={sessions}
         currentSessionId={currentSessionId}
         sessionPdfs={sessionPdfs[currentSessionId] || []}
         selectedPdf={selectedPdf}
         onNewChat={handleNewChat}
-        // onSessionClick={setCurrentSessionId} // Implementar navegación
       />
-      
+
+      {/* --- ÁREA DE CHAT --- */}
       <ChatContainer
         chatHistory={chatHistory}
         sessionPdfs={sessionPdfs[currentSessionId] || []}
         selectedPdf={selectedPdf}
-        onSelectedPdfChange={setSelectedPdf} // Permitir que el select cambie el estado
+        onSelectedPdfChange={setSelectedPdf}
         onSendMessage={handleSendMessage}
         onFileUpload={handleFileUpload}
         isLoading={isLoading}
       />
-    </>
-  );
+    </div>
+  </div>
+);
+
 }
 
 // ------------------------------------
