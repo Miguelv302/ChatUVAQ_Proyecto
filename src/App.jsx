@@ -1,10 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import ChatContainer from "./components/ChatContainer";
 import Sidebar from "./components/sidebar";
-import ChatMessage from "./components/ChatMessages";
-import ChatBox from "./components/ChatBox";
-import UploadForm from "./components/UploadForm";
-import MessageForm from "./components/MessageForm";
 import "./App.css";
 
 // Mocks
@@ -14,6 +10,7 @@ const mockChatHistory = [
   { sender: 'Tú', message: 'Hola, ¿puedes resumir doc_ia.pdf?' },
   { sender: 'Bot', message: 'Claro, este documento trata sobre...' }
 ];
+
 const MOCK_CURRENT_SESSION_ID = 'sid-1';
 const MOCK_SELECTED_PDF = 'doc_ia.pdf';
 
@@ -25,7 +22,8 @@ export default function ChatApp() {
   const [chatHistory, setChatHistory] = useState(mockChatHistory);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendMessage = async (messageText, pdfForMessage) => {
+
+  const handleSendMessage = async (messageText) => {
     if (!messageText) return;
 
     setChatHistory(prev => [...prev, { sender: "Tú", message: messageText }]);
@@ -68,12 +66,16 @@ export default function ChatApp() {
   return (
     <div className="app-container">
 
-      {/* Barra amarilla con logo */}
+      {/* TOP BAR */}
       <header className="topbar">
         <img src="/logo_uvaq.png" className="logo-img" alt="logo" />
       </header>
 
-      <div className="content-wrapper">
+      {/* LAYOUT COMO CHATGPT */}
+      <div className="layout">
+
+        
+        {/* SIDEBAR (FIJO A LA IZQUIERDA) */}
         <Sidebar
           sessions={sessions}
           currentSessionId={currentSessionId}
@@ -81,16 +83,21 @@ export default function ChatApp() {
           selectedPdf={selectedPdf}
         />
 
-        <ChatContainer
-          chatHistory={chatHistory}
-          sessionPdfs={sessionPdfs[currentSessionId]}
-          selectedPdf={selectedPdf}
-          onSelectedPdfChange={setSelectedPdf}
-          onSendMessage={handleSendMessage}
-          onFileUpload={handleFileUpload}
-          isLoading={isLoading}
-        />
+        {/* CONTENIDO PRINCIPAL DE CHAT */}
+        <main className="content-wrapper">
+          <ChatContainer
+            chatHistory={chatHistory}
+            sessionPdfs={sessionPdfs[currentSessionId]}
+            selectedPdf={selectedPdf}
+            onSelectedPdfChange={setSelectedPdf}
+            onSendMessage={handleSendMessage}
+            onFileUpload={handleFileUpload}
+            isLoading={isLoading}
+          />
+        </main>
+
       </div>
+
     </div>
   );
 }
