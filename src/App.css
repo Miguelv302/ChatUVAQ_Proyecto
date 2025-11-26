@@ -49,7 +49,7 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: #1E1E1E;
+  background: #322B2B;
 }
 
 /* ==== ÁREA DE MENSAJES ==== */
@@ -98,6 +98,7 @@ html, body, #root {
   background: #6b5b5b55;        /* como en tu UI actual */
   border-radius: 10px;
   margin-bottom: 10px;
+  
 }
 
 /* Estilo del texto */
@@ -151,7 +152,7 @@ html, body, #root {
 /* SIDEBAR BASE */
 .sidebar {
   width: 75px;
-  background: #111;
+  background: #322B2B;
   color: #eee;
   height: 100vh;
   padding: 15px 10px;
@@ -193,7 +194,7 @@ html, body, #root {
 .new-chat-btn {
   display: flex;
   align-items: center;
-  background: #222;
+  background: #1A1A1A;
   color: white;
   padding: 10px;
   border-radius: 8px;
@@ -221,8 +222,8 @@ html, body, #root {
 .session-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px;
+  gap: 10px;
+  padding: 8px;
   border-radius: 6px;
   cursor: pointer;
   color: #ccc;
@@ -235,7 +236,7 @@ html, body, #root {
 }
 
 .session-item.active {
-  background: #333;
+  background: #444;
   color: white;
 }
 
@@ -404,6 +405,233 @@ html, body, #root {
 .sidebar.open + .content-wrapper {
   margin-left: 210px;
 }
+
+/* ⭐ Fondo azul cuando un item está seleccionado */
+.active-icon {
+  background: #005bbb !important;
+  color: white !important;
+}
+
+/* Contenedor inferior */
+.sidebar-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 100px;
+  
+  
+}
+
+/* -----------------------------LOGIN ----------------------------*/
+/* FONDO DEL LOGIN */
+.login-box {
+  width: 300px;
+  padding: 30px;
+  background-color: #2f2727;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ICONO REDONDO */
+.login-icon {
+  width: 80px;
+  height: 80px;
+  background-color: #ffcc00;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-icon .material-icons {
+  font-size: 40px;
+  color: black;
+}
+
+/* TITULOS */
+.login-title {
+  color: #b5b0b0;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin: 0;
+  align-self: flex-start;
+}
+
+/* INPUTS */
+.login-field {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background-color: #1f1a1a;
+  color: white;
+  font-size: 14px;
+}
+
+/* BOTÓN ENVIAR */
+.login-submit {
+  width: 130px;
+  padding: 10px;
+  background-color: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+/* BOTÓN VOLVER */
+.login-back-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #ffcc00;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login-center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.login-user-icon {
+  font-size: 48px;
+  color: black;
+}
+
+/* -----------------------TABLA ADMIN ---------------------*/
+/* ------------ CONTENEDOR GENERAL ------------ */
+.admin-layout {
+  width: 90%;
+  max-width: 1100px;
+  margin: 40px auto;
+  background: #5e5255;        /* color gris/marrón del fondo */
+  padding: 40px;
+  border-radius: 30px;
+  
+}
+
+/* ------------ TITULO ------------ */
+.admin-title {
+  font-size: 36px;
+  color: #2d2626;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+/* ------------ BUSCADOR ------------ */
+.admin-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.admin-search-input {
+  width: 80%;
+  height: 35px;
+  background: #2d2626; /* barra negra */
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.admin-search-btn {
+  height: 35px;
+  width: 60px;
+  border: none;
+  border-radius: 10px;
+  background: #ffbf00; /* amarillo */
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.admin-search-btn:hover {
+  opacity: 0.8;
+}
+
+/* ------------ TABLA CONTENEDOR ------------ */
+.admin-table-box {
+  background: #2d2626; /* fondo negro tabla */
+  border-radius: 20px;
+  padding-bottom: 10px;
+  overflow: hidden;
+}
+
+/* ------------ TABLA ------------ */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+  font-size: 15px;
+}
+
+.admin-table thead {
+  background: #ffbf00; /* barra amarilla del header */
+  color: black;
+  font-weight: bold;
+}
+
+.admin-table thead th {
+  padding: 12px 10px;
+  text-align: left;
+}
+
+/* ------------ CUERPO DE LA TABLA ------------ */
+.admin-table tbody tr td {
+  padding: 15px 10px;
+  border-bottom: 1px solid rgba(255, 255, 0, 0.3);
+}
+
+/* Líneas verticales estilo imagen */
+.admin-table tbody tr td:nth-child(2),
+.admin-table tbody tr td:nth-child(3),
+.admin-table tbody tr td:nth-child(4) {
+  border-left: 2px solid #c99700;
+}
+
+/* Enlaces en azul */
+.admin-table a {
+  color: #83aef3;
+  text-decoration: underline;
+}
+
+/* Checkbox estilo cuadrado negro */
+.admin-table input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: black;
+}
+
+/* ------------ BOTÓN DE VOLVER ------------ */
+.login-submit {
+  margin-top: 30px;
+  padding: 10px 20px;
+  background: #ffbf00;
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  color: black;
+}
+
+.login-submit:hover {
+  opacity: 0.8;
+}
+
+
+
 
 
 

@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import ChatContainer from "./components/ChatContainer";
 import Sidebar from "./components/sidebar";
 import "./App.css";
+import Login from "./components/Login";
+import AdminLayout from "./components/Admin";
+
+
 
 // Mocks
 const mockSessions = { 'sid-1': 'Chat sobre IA' };
@@ -21,6 +25,10 @@ export default function ChatApp() {
   const [selectedPdf, setSelectedPdf] = useState(MOCK_SELECTED_PDF);
   const [chatHistory, setChatHistory] = useState(mockChatHistory);
   const [isLoading, setIsLoading] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [isAdminLogged, setIsAdminLogged] = useState(false);
+
+
 
 
   const handleSendMessage = async (messageText) => {
@@ -63,6 +71,44 @@ export default function ChatApp() {
     }));
   };
 
+  if (showAdminLogin && !isAdminLogged) {
+    return (
+      <div className="app-container">
+        <header className="topbar">
+          <img src="/logo_uvaq.png" className="logo-img" alt="logo" />
+        </header>
+
+        <main className="content-wrapper login-center">
+          <Login
+            onBack={() => setShowAdminLogin(false)}
+            onLogin={() => setIsAdminLogged(true)}
+          />
+        </main>
+      </div>
+    );
+  }
+
+  if (isAdminLogged) {
+    return (
+      <div className="app-container">
+        <header className="topbar">
+          <img src="/logo_uvaq.png" className="logo-img" alt="logo" />
+        </header>
+
+        <main className="content-wrapper login-center">
+          <AdminLayout 
+            onBack={() => {
+              setIsAdminLogged(false);
+              setShowAdminLogin(false);
+            }} 
+          />
+        </main>
+      </div>
+    );
+  }
+
+
+  
   return (
     <div className="app-container">
 
@@ -81,6 +127,8 @@ export default function ChatApp() {
           currentSessionId={currentSessionId}
           sessionPdfs={sessionPdfs[currentSessionId]}
           selectedPdf={selectedPdf}
+
+          onAdminClick={() => setShowAdminLogin(true)}
         />
 
         {/* CONTENIDO PRINCIPAL DE CHAT */}
