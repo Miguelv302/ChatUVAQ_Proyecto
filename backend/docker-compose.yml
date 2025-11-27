@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: uvaq_backend
+    ports:
+      - "8000:8000"
+    environment:
+      QDRANT_URL: "http://qdrant:6333"
+      LLMSTUDIO_URL: "http://127.0.0.1:1234"  # <- LMStudio FUERA de docker
+      LLAMA_MODEL: "text-embedding-nomic-embed-text-v1.5"
+      ADMIN_TOKEN: "supersecreto123"
+    depends_on:
+      - qdrant
+
+  frontend:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    container_name: uvaq_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: uvaq_qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/data
+
+volumes:
+  qdrant_data:
