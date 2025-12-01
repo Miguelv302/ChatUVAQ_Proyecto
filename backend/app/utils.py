@@ -20,4 +20,4 @@ LLMSTUDIO_URL = os.getenv("LLMSTUDIO_URL", "http://127.0.0.1:1234")
 LLAMA_VECTOR_SIZE = int(os.getenv("LLAMA_VECTOR_SIZE", 768))  # tamaño del embedding LLaMA
 
 # Admin token (simple protection)
-ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "change-me")
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "1921643")

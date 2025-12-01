@@ -1,18 +1,28 @@
-# Usa una imagen base ligera de Python
-FROM python:3.10-slim
+FROM python:3.11-slim
 
-# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia solo el archivo de requisitos primero para aprovechar el caché de Docker
-COPY ./requirements.txt /app/requirements.txt
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    poppler-utils \
+    libglib2.0-0 \
+    libgl1 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instala las dependencias de Python
+# Copiar requirements
+COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia todo el código de tu backend al contenedor
-COPY . /app
+# Copiar la carpeta app completa
+COPY ./app /app/app
 
-# El comando que se ejecuta cuando el contenedor inicia
-# Inicia el servidor FastAPI
-CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Copiar .env
+COPY .env /app/.env
+
+ENV PYTHONPATH="/app"
+
+EXPOSE 8000
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

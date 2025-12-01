@@ -1,3 +1,4 @@
+# backend/app/main.py
 import os
 import io
 import logging
@@ -9,8 +10,7 @@ from pydantic import BaseModel
 import fitz        # pdf extract
 import docx        # docx extract
 
-# IMPORTS CORREGIDOS (tu estructura backend/app/)
-from app.utils import CHUNK_SIZE, ADMIN_TOKEN
+from app.utils import CHUNK_SIZE, ADMIN_TOKEN, LLAMA_MODEL, LLMSTUDIO_URL
 from app.qdrant_helper import qdrant_client
 from app.rag_engine import RAGEngine
 from app.embedder_llama import LlamaEmbedder
@@ -42,7 +42,7 @@ class ChatMessage(BaseModel):
 # -------------------------
 # Extractores de PDF y DOCX
 # -------------------------
-def extract_chunks_from_pdf_bytes(file_bytes: bytes, filename: str):
+def extract_chunks_from_pdf_bytes(file_bytes: bytes, filename: str) -> List[dict]:
     chunks = []
     try:
         with fitz.open(stream=file_bytes, filetype="pdf") as doc:
@@ -59,7 +59,7 @@ def extract_chunks_from_pdf_bytes(file_bytes: bytes, filename: str):
     return chunks
 
 
-def extract_chunks_from_docx_bytes(file_bytes: bytes, filename: str):
+def extract_chunks_from_docx_bytes(file_bytes: bytes, filename: str) -> List[dict]:
     chunks = []
     try:
         doc = docx.Document(io.BytesIO(file_bytes))

@@ -1,40 +1,28 @@
+# admin_upload_cli.py
 import requests
-import json
+import sys
+import os
 
-LLMSTUDIO_URL = "http://127.0.0.1:1234/v1/embeddings"   # CAMBIA el puerto si no es 1234
+API_URL = "http://localhost:8000/admin/upload_document"
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "1921643")  # cambia o exporta en .env
 
-
-
-# Cambia el modelo si estás usando otro
-MODEL = "text-embedding-nomic-embed-text-v1.5"
-
-def test_embedding(text):
-    print("\n=== Probando LM Studio Embeddings ===")
-    payload = {
-        "model": MODEL,
-        "input": text,
-        "type": "embedding"
-    }
-
-    resp = requests.post(LLMSTUDIO_URL, json=payload)
-
-    print("\nStatus code:", resp.status_code)
-
-    if resp.status_code != 200:
-        print("ERROR:", resp.text)
+def upload_file(path):
+    if not os.path.exists(path):
+        print("Archivo no encontrado:", path)
         return
 
-    data = resp.json()
-
-    print("\nRespuesta cruda completa:\n")
-    print(json.dumps(data, indent=4)[:3000])  # no saturar la terminal
-
-    try:
-        emb = data["data"][0]["embedding"]
-        print("\nLongitud del embedding:", len(emb))
-        print("Primeros 10 valores:", emb[:10])
-    except Exception as e:
-        print("\nERROR extrayendo embedding:", e)
+    headers = {"Authorization": f"Bearer {ADMIN_TOKEN}"}
+    with open(path, "rb") as f:
+        files = {"file": (os.path.basename(path), f, "application/octet-stream")}
+        try:
+            res = requests.post(API_URL, headers=headers, files=files, timeout=120)
+            print("Status:", res.status_code)
+            print(res.text)
+        except Exception as e:
+            print("Error al subir archivo:", e)
 
 if __name__ == "__main__":
-    test_embedding("Hola mundo")
+    if len(sys.argv) < 2:
+        print("Uso: python admin_upload_cli.py /ruta/al/archivo.pdf")
+        sys.exit(1)
+    upload_file(sys.argv[1])

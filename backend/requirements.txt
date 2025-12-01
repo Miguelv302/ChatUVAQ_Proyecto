@@ -1,9 +1,10 @@
 fastapi
 uvicorn[standard]
+requests
+python-dotenv
 qdrant-client
+pydantic
 python-docx
 PyMuPDF
-python-dotenv
-requests
-jinja2
+sentence-transformers
 numpy

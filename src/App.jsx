@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ChatContainer from "./components/ChatContainer";
-import Sidebar from "./components/sidebar";
+import Sidebar from "./components/Sidebar";
 import "./App.css";
 import Login from "./components/Login";
 import AdminLayout from "./components/Admin";
